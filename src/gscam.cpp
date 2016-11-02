@@ -83,7 +83,7 @@ namespace gscam {
     // Get the image encoding
     nh_private_.param("image_encoding", image_encoding_, sensor_msgs::image_encodings::RGB8);
     if (image_encoding_ != sensor_msgs::image_encodings::RGB8 &&
-        image_encoding_ != sensor_msgs::image_encodings::MONO8 && 
+        image_encoding_ != sensor_msgs::image_encodings::MONO8 &&
         image_encoding_ != "jpeg") {
       ROS_FATAL_STREAM("Unsupported image encoding: " + image_encoding_);
     }
@@ -129,7 +129,7 @@ namespace gscam {
     sink_ = gst_element_factory_make("appsink",NULL);
     GstCaps * caps = NULL;
     if (image_encoding_ == sensor_msgs::image_encodings::RGB8) {
-        caps = gst_caps_new_simple("video/x-raw-rgb", NULL); 
+        caps = gst_caps_new_simple("video/x-raw-rgb", NULL);
     } else if (image_encoding_ == sensor_msgs::image_encodings::MONO8) {
         caps = gst_caps_new_simple("video/x-raw-gray", NULL);
     } else if (image_encoding_ == "jpeg") {
@@ -203,10 +203,10 @@ namespace gscam {
 
     // Create ROS camera interface
     if (image_encoding_ == "jpeg") {
-        jpeg_pub_ = nh_.advertise<sensor_msgs::CompressedImage>("camera/image_raw/compressed",1);
-        cinfo_pub_ = nh_.advertise<sensor_msgs::CameraInfo>("camera/camera_info",1);
+        jpeg_pub_ = nh_.advertise<sensor_msgs::CompressedImage>("image_raw/compressed",1);
+        cinfo_pub_ = nh_.advertise<sensor_msgs::CameraInfo>("camera_info",1);
     } else {
-        camera_pub_ = image_transport_.advertiseCamera("camera/image_raw", 1);
+        camera_pub_ = image_transport_.advertiseCamera("image_raw", 1);
     }
 
     return true;
